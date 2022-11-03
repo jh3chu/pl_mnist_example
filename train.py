@@ -62,6 +62,7 @@ if __name__ == "__main__":
     
     pl.seed_everything(dict_args['seed'])
     # Initialize model to train
+    print(f"[info] Model: {dict_args['model']}")
     assert dict_args['model'] in MODEL_DIRECTORY
     if dict_args['load'] is not None:
         model = MODEL_DIRECTORY[dict_args['model']].load_from_checkpoint(dict_args['load'], **dict_args)
@@ -72,8 +73,8 @@ if __name__ == "__main__":
     now = datetime.datetime.now().strftime('%m%d%H%M%S')
     weight_save_dir = os.path.join(dict_args["logdir"], os.path.join('models', 'state_dict', now))
 
-
     os.makedirs(weight_save_dir, exist_ok=True)
+    print(f"[info] Saving weights to : {weight_save_dir}")
 
     # Callback: model checkpoint strategy
     checkpoint_callback = ModelCheckpoint(
@@ -83,6 +84,7 @@ if __name__ == "__main__":
     # Data: load data module
     assert dict_args['dataloader'] in DATALOADER_DIRECTORY
     data_module = DATALOADER_DIRECTORY[dict_args['dataloader']](**dict_args)
+    print(f"[info] Using dataloader: {dict_args['dataloader']}")
 
     # Trainer: initialize training behaviour
     profiler = SimpleProfiler()
@@ -101,6 +103,7 @@ if __name__ == "__main__":
     )
 
     # Trainer: train model
+    print(f"[info] Starting training")
     trainer.fit(model, data_module)
 
     # Evaluate model on best ckpt (defined in 'ModelCheckpoint' callback)
