@@ -20,12 +20,12 @@ logdir=/home/kkaai/scratch/saved
 datadir=/home/kkaai/scratch/data
 # datadir=$SLURM_TMPDIR
 
-tensorboard --logdir=${logdir}/lightning_logs --host 0.0.0.0 --load_fast false &\
+tensorboard --logdir=${logdir}/lightning_logs --host 0.0.0.0 --load_fast false & \
     python ~/workspace/pl_mnist_example/train.py \
     --model Conv \
     --dataloader MNIST \
     --batch_size 32 \
-    --epochs 10 \
+    --epoch 10 \
     --num_workers 10 \
     --logdir ${logdir} \
     --data_dir  ${datadir}
