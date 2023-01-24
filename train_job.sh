@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --time=0-00:30:00
-#SBATCH --account=rrg-pfieguth
+#SBATCH --account=def-s2mclach
 #SBATCH --mem=32000M            # memory per node
 #SBATCH --gpus-per-node=1
-#SBATCH --cpus-per-task=10      # CPU cores/threads
+#SBATCH --cpus-per-task=6       # CPU cores/threads
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 echo "Hello World"
@@ -16,8 +16,8 @@ module load python/3.8 cuda cudnn
 source ~/envs/hello/bin/activate
 
 # Variables for readability
-logdir=/home/kkaai/scratch/saved
-datadir=/home/kkaai/scratch/data
+logdir=/home/jh3chu/scratch/saved
+datadir=/home/jh3chu/scratch/data
 # datadir=$SLURM_TMPDIR
 
 tensorboard --logdir=${logdir}/lightning_logs --host 0.0.0.0 --load_fast false & \
